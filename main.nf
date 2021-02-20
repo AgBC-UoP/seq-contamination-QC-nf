@@ -46,11 +46,7 @@ process fastq_screen {
 		fastq_screen \
 			--threads ${task.cpus} \
             --outdir fastq_screen_${sample_id}_logs \
-			${reads[0]}
-        fastq_screen \
-			--threads ${task.cpus} \
-            --outdir fastq_screen_${sample_id}_logs \
-			${reads[1]}
+			${reads[0]} ${reads[1]}
 		"""
 }
 
@@ -67,7 +63,7 @@ process fastqc {
     script:
     """
     mkdir fastqc_${sample_id}_logs
-    fastqc -o fastqc_${sample_id}_logs -f fastq -q ${reads}
+    fastqc -o fastqc_${sample_id}_logs --threads 2 -f fastq -q ${reads}
     """  
 }
 
