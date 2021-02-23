@@ -20,7 +20,7 @@ Channel
 fastq_screen_file = file(params.fastq_screen)
 
 process fastq_screen {
-
+    conda "bioconda::fastq-screen"
     tag "$sample_id"
 
 	input:
@@ -46,6 +46,7 @@ process fastq_screen {
 }
 
 process fastqc {
+    conda "bioconda::fastqc"
     tag "FASTQC on $sample_id"
 
     input:
@@ -63,6 +64,7 @@ process fastqc {
 }
 
 process multiqc {
+    conda "bioconda::multiqc"
     publishDir params.outdir, mode:'copy'
        
     input:
