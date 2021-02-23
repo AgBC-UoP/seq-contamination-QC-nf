@@ -9,15 +9,16 @@
 
 params.reads = "$launchDir/*{1,2}*.{fq,fastq}"
 params.outdir = "$launchDir/results"
-params.fastq_screen = "$projectDir/fastq_screen/fastq_screen.conf"
-
+params.fastqs_conf = "$projectDir/fastq_screen/fastq_screen.conf"
+params.fastqs_subset = 0
 
 Channel
     .fromFilePairs(params.reads)
     .ifEmpty { error "Cannot find any reads matching: ${params.reads}" }
     .into { read_pairs_ch; read_pairs2_ch } 
 
-fastq_screen_file = file(params.fastq_screen)
+fastq_screen_file = file(params.fastqs_conf)
+subset = params.fastqs_subset
 
 process fastq_screen {
     cpus 24
@@ -37,12 +38,12 @@ process fastq_screen {
 		"""
         mkdir fastq_screen_${sample_id}_logs
 		fastq_screen \
-			--subset 200000 \
-            		--force \
+			--subset ${subset} \
+            --force \
 			--conf ${fastq_screen_conf} \
 			--threads ${task.cpus} \
 			--aligner bowtie2 \
-            		--outdir fastq_screen_${sample_id}_logs \
+            --outdir fastq_screen_${sample_id}_logs \
 			${reads[0]} ${reads[1]}
 		"""
 }
