@@ -36,11 +36,11 @@ process fastq_screen {
         mkdir fastq_screen_${sample_id}_logs
 		fastq_screen \
 			--subset 200000 \
-            --force \
+            		--force \
 			--conf ${fastq_screen_conf} \
 			--threads ${task.cpus} \
 			--aligner bowtie2 \
-            --outdir fastq_screen_${sample_id}_logs \
+            		--outdir fastq_screen_${sample_id}_logs \
 			${reads[0]} ${reads[1]}
 		"""
 }
