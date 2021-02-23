@@ -7,9 +7,9 @@
  * 
  */
 
-params.reads = "$baseDir/*{1,2}*.{fq,fastq}"
-params.outdir = "$baseDir/results"
-params.fastq_screen = "$baseDir/fastq_screen/fastq_screen.conf"
+params.reads = "$launchDir/*{1,2}*.{fq,fastq}"
+params.outdir = "$launchDir/results"
+params.fastq_screen = "$projectDir/fastq_screen/fastq_screen.conf"
 
 
 Channel
@@ -20,6 +20,7 @@ Channel
 fastq_screen_file = file(params.fastq_screen)
 
 process fastq_screen {
+    cpus 24
     conda "bioconda::fastq-screen"
     tag "$sample_id"
 
@@ -46,6 +47,7 @@ process fastq_screen {
 }
 
 process fastqc {
+    cpus 2
     conda "bioconda::fastqc"
     tag "FASTQC on $sample_id"
 
