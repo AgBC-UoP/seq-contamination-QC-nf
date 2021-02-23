@@ -22,6 +22,7 @@ fastq_screen_file = file(params.fastq_screen)
 process fastq_screen {
     cpus 24
     conda "bioconda::fastq-screen"
+    publishDir "$params.outdir/fastq_screen", mode:'copy'
     tag "$sample_id"
 
 	input:
@@ -49,6 +50,7 @@ process fastq_screen {
 process fastqc {
     cpus 2
     conda "bioconda::fastqc"
+    publishDir "$params.outdir/fastqc", mode:'copy'
     tag "FASTQC on $sample_id"
 
     input:
