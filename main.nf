@@ -21,7 +21,9 @@ fastq_screen_file = file(params.fastqs_conf)
 subset = params.fastqs_subset
 
 process fastq_screen {
-    cpus 24
+    cpus 8
+    maxForks 3
+    
     conda "bioconda::fastq-screen"
     publishDir "$params.outdir/fastq_screen", mode:'copy'
     tag "$sample_id"
