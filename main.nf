@@ -22,9 +22,8 @@ subset = params.fastqs_subset
 
 process fastq_screen {
     cpus 8
-    maxForks 3
+    maxForks 2
     
-    conda "bioconda::fastq-screen"
     publishDir "$params.outdir/fastq_screen", mode:'copy'
     tag "$sample_id"
 
@@ -52,7 +51,6 @@ process fastq_screen {
 
 process fastqc {
     cpus 2
-    conda "bioconda::fastqc"
     publishDir "$params.outdir/fastqc", mode:'copy'
     tag "FASTQC on $sample_id"
 
@@ -71,7 +69,6 @@ process fastqc {
 }
 
 process multiqc {
-    conda "bioconda::multiqc"
     publishDir params.outdir, mode:'copy'
        
     input:
