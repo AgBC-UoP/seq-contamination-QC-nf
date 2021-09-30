@@ -21,7 +21,6 @@ fastq_screen_file = file(params.fastqs_conf)
 subset = params.fastqs_subset
 
 process fastq_screen {
-    cpus 8
     maxForks 2
     
     publishDir "$params.outdir/fastq_screen", mode:'copy'
@@ -42,7 +41,6 @@ process fastq_screen {
 			--subset ${subset} \
             --force \
 			--conf ${fastq_screen_conf} \
-			--threads ${task.cpus} \
 			--aligner bowtie2 \
             --outdir fastq_screen_${sample_id}_logs \
 			${reads[0]} ${reads[1]}
