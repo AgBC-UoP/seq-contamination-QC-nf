@@ -21,7 +21,7 @@ fastq_screen_file = file(params.fastqs_conf)
 subset = params.fastqs_subset
 
 process fastq_screen {
-    maxForks 2
+    maxForks 1
     
     publishDir "$params.outdir/fastq_screen", mode:'copy'
     tag "$sample_id"
